@@ -5,147 +5,94 @@ import math
 import cv2
 
 
-def resize():
-
-    for filename in listdir('pink'):
-        img = cv2.imread('pink/'+filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('pink/'+filename,img)
-
-    for filename in listdir('purple'):
-        img = cv2.imread('purple/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('purple/' + filename, img)
-    for filename in listdir('yellow'):
-        img = cv2.imread('yellow/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('yellow/' + filename, img)
-    for filename in listdir('orange'):
-        img = cv2.imread('orange/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('orange/' + filename, img)
-    for filename in listdir('white'):
-        img = cv2.imread('white/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('white/' + filename, img)
-    for filename in listdir('silver'):
-        img = cv2.imread('silver/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('silver/' + filename, img)
-    for filename in listdir('grey'):
-        img = cv2.imread('grey/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('grey/' + filename, img)
-    for filename in listdir('black'):
-        img = cv2.imread('black/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('black/' + filename, img)
-    for filename in listdir('red'):
-        img = cv2.imread('red/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('red/' + filename, img)
-    for filename in listdir('brown'):
-        img = cv2.imread('brown/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('brown/' + filename, img)
-    for filename in listdir('green'):
-        img = cv2.imread('green/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('green/' + filename, img)
-    for filename in listdir('blue'):
-        img = cv2.imread('blue/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('blue/' + filename, img)
-    for filename in listdir('test'):
-        img = cv2.imread('test/' + filename)
-        img = cv2.resize(img, (112, 112))
-        cv2.imwrite('test/' + filename, img)
-    return 1
-
 def load_dataset():
 
     loaded_images = list()
     loaded_images_test = list()
     y_train = list()
     y_test = list()
-    for filename in listdir('pink'):
+    for filename in listdir('train/buildings'):
         # load image
-        img_data = image.imread('pink/' + filename)
+        img_data = image.imread('train/buildings/' + filename)
         y_train.append(0)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('purple'):
+
+    for filename in listdir('train/forest'):
         # load image
-        img_data = image.imread('purple/' + filename)
+        img_data = image.imread('train/forest/' + filename)
         y_train.append(1)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('yellow'):
+
+    for filename in listdir('train/glacier'):
         # load image
-        img_data = image.imread('yellow/' + filename)
+        img_data = image.imread('train/glacier/' + filename)
         y_train.append(2)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('orange'):
+
+    for filename in listdir('train/mountain'):
         # load image
-        img_data = image.imread('orange/' + filename)
+        img_data = image.imread('train/mountain/' + filename)
         y_train.append(3)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('white'):
+    for filename in listdir('train/sae'):
         # load image
-        img_data = image.imread('white/' + filename)
+        img_data = image.imread('train/sea/' + filename)
         y_train.append(4)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('silver'):
+    for filename in listdir('train/street'):
         # load image
-        img_data = image.imread('silver/' + filename)
+        img_data = image.imread('train/street/' + filename)
         y_train.append(5)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('grey'):
+
+    for filename in listdir('test/buildings'):
         # load image
-        img_data = image.imread('grey/' + filename)
-        y_train.append(6)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('black'):
-        # load image
-        img_data = image.imread('black/' + filename)
-        y_train.append(7)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('red'):
-        # load image
-        img_data = image.imread('red/' + filename)
-        y_train.append(8)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('brown'):
-        # load image
-        img_data = image.imread('brown/' + filename)
-        y_train.append(9)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('green'):
-        # load image
-        img_data = image.imread('green/' + filename)
-        y_train.append(10)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('blue'):
-        # load image
-        img_data = image.imread('blue/' + filename)
-        y_train.append(11)
-        # store loaded image
-        loaded_images.append(img_data)
-    for filename in listdir('test'):
-        # load image
-        img_data = image.imread('test/' + filename)
+        img_data = image.imread('test/buildings/' + filename)
         y_test.append(0)
         # store loaded image
         loaded_images_test.append(img_data)
+
+    for filename in listdir('test/forest'):
+        # load image
+        img_data = image.imread('test/forest/' + filename)
+        y_test.append(1)
+        # store loaded image
+        loaded_images_test.append(img_data)
+
+    for filename in listdir('test/glacier'):
+        # load image
+        img_data = image.imread('test/glacier/' + filename)
+        y_test.append(2)
+        # store loaded image
+        loaded_images_test.append(img_data)
+
+    for filename in listdir('test/mountain'):
+        # load image
+        img_data = image.imread('test/mountain/' + filename)
+        y_test.append(3)
+        # store loaded image
+        loaded_images_test.append(img_data)
+
+    for filename in listdir('test/sae'):
+        # load image
+        img_data = image.imread('test/sea/' + filename)
+        y_test.append(4)
+        # store loaded image
+        loaded_images_test.append(img_data)
+
+    for filename in listdir('test/street'):
+        # load image
+        img_data = image.imread('test/street/' + filename)
+        y_test.append(5)
+        # store loaded image
+        loaded_images_test.append(img_data)
+
 
     train_set_x_orig = np.array(loaded_images)  # your train set features
     train_set_y_orig = np.array(y_train)  # your train set labels
@@ -153,7 +100,7 @@ def load_dataset():
     test_set_x_orig = np.array(loaded_images_test)  # your test set features
     test_set_y_orig = np.array(y_test)  # your test set labels
 
-    classes = np.array([0,1,2,3,4,5,6,7,8,9,10,11])  # the list of classes
+    classes = np.array([0,1,2,3,4,5])  # the list of classes
 
     train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
