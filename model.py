@@ -16,6 +16,7 @@ def create_placeholders(n_x, n_y):
 def initialize_parameters():
     tf.set_random_seed(1)
 
+
     W1 = tf.get_variable("W1", [50, 37632], initializer=tf.contrib.layers.xavier_initializer(seed=1))
     b1 = tf.get_variable("b1", [50, 1], initializer=tf.zeros_initializer())
     W2 = tf.get_variable("W2", [25, 50], initializer=tf.contrib.layers.xavier_initializer(seed=1))
