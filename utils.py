@@ -38,7 +38,7 @@ def load_dataset():
         y_train.append(3)
         # store loaded image
         loaded_images.append(img_data)
-    for filename in listdir('train/sae'):
+    for filename in listdir('train/sea'):
         # load image
         img_data = image.imread('train/sea/' + filename)
         y_train.append(4)
@@ -79,7 +79,7 @@ def load_dataset():
         # store loaded image
         loaded_images_test.append(img_data)
 
-    for filename in listdir('test/sae'):
+    for filename in listdir('test/sea'):
         # load image
         img_data = image.imread('test/sea/' + filename)
         y_test.append(4)

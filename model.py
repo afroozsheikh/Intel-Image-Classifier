@@ -16,19 +16,23 @@ def create_placeholders(n_x, n_y):
 def initialize_parameters():
     tf.set_random_seed(1)
 
-    W1 = tf.get_variable("W1", [50, 37632], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    W1 = tf.get_variable("W1", [50, 67500], initializer=tf.contrib.layers.xavier_initializer(seed=1))
     b1 = tf.get_variable("b1", [50, 1], initializer=tf.zeros_initializer())
     W2 = tf.get_variable("W2", [25, 50], initializer=tf.contrib.layers.xavier_initializer(seed=1))
     b2 = tf.get_variable("b2", [25, 1], initializer=tf.zeros_initializer())
     W3 = tf.get_variable("W3", [12, 25], initializer=tf.contrib.layers.xavier_initializer(seed=1))
     b3 = tf.get_variable("b3", [12, 1], initializer=tf.zeros_initializer())
+    W4 = tf.get_variable("W4", [6, 12], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    b4 = tf.get_variable("b4", [6, 1], initializer=tf.zeros_initializer())
 
     parameters = {"W1": W1,
                   "b1": b1,
                   "W2": W2,
                   "b2": b2,
                   "W3": W3,
-                  "b3": b3
+                  "b3": b3,
+                  "W4": W4,
+                  "b4": b4
                   }
 
     return parameters
@@ -41,25 +45,28 @@ def forward_propagation(X, parameters):
     b2 = parameters['b2']
     W3 = parameters['W3']
     b3 = parameters['b3']
-
+    W4 = parameters['W3']
+    b4 = parameters['b3']
 
     Z1 = tf.add(tf.matmul(W1, X), b1)  # Z1 = np.dot(W1, X) + b1
     A1 = tf.nn.relu(Z1)  # A1 = relu(Z1)
     Z2 = tf.add(tf.matmul(W2, A1), b2)  # Z2 = np.dot(W2, A1) + b2
     A2 = tf.nn.relu(Z2)  # A2 = relu(Z2)
     Z3 = tf.add(tf.matmul(W3, A2), b3)  # Z3 = np.dot(W3, A2) + b3
-    return Z3
+    A3 = tf.nn.relu(Z3)  # A3 = relu(Z2)
+    Z4 = tf.add(tf.matmul(W4, A3), b4)  # Z4 = np.dot(W4, A3) + b4
+    return Z4
 
 
-def compute_cost(Z3, Y):
-    logits = tf.transpose(Z3)
+def compute_cost(Z4, Y):
+    logits = tf.transpose(Z4)
     labels = tf.transpose(Y)
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels))
     return cost
 
 
 def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
-          num_epochs=1200, minibatch_size=1024, print_cost=True):
+          num_epochs=1200, minibatch_size=256, print_cost=True):
     ops.reset_default_graph()  # to be able to rerun the model without overwriting tf variables
     tf.set_random_seed(1)  # to keep consistent results
     seed = 3  # to keep consistent results
@@ -69,8 +76,8 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
 
     X, Y = create_placeholders(n_x, n_y)
     parameters = initialize_parameters()
-    Z3 = forward_propagation(X, parameters)
-    cost = compute_cost(Z3, Y)
+    Z4 = forward_propagation(X, parameters)
+    cost = compute_cost(Z4, Y)
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
     init = tf.global_variables_initializer()
 
@@ -89,7 +96,7 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
                 _, minibatch_cost = sess.run([optimizer, cost], feed_dict={X: minibatch_X, Y: minibatch_Y})
                 epoch_cost += minibatch_cost / minibatch_size
             print("we are in epoch #{}".format(epoch))
-            if print_cost == True and epoch % 100 == 0:
+            if print_cost == True and epoch % 10 == 0:
                 print("Cost after epoch %i: %f" % (epoch, epoch_cost))
             if print_cost == True and epoch % 5 == 0:
                 costs.append(epoch_cost)
@@ -125,8 +132,8 @@ X_train = X_train_flatten/255.
 X_test = X_test_flatten/255.
 
 
-Y_train = convert_to_one_hot(Y_train_orig, 12)
-Y_test = convert_to_one_hot(Y_test_orig, 12)
+Y_train = convert_to_one_hot(Y_train_orig, 6)
+Y_test = convert_to_one_hot(Y_test_orig, 6)
 
 
 parameters = model(X_train, Y_train, X_test, Y_test)
