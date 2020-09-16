@@ -9,54 +9,54 @@ def resize():
 
     for filename in listdir('train/buildings'):
         img = cv2.imread('train/buildings/'+filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/buildings/'+filename,img)
 
     for filename in listdir('train/forest'):
         img = cv2.imread('train/forest/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/forest/' + filename, img)
     for filename in listdir('train/glacier'):
         img = cv2.imread('train/glacier/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/glacier/' + filename, img)
     for filename in listdir('train/mountain'):
         img = cv2.imread('train/mountain/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/mountain/' + filename, img)
     for filename in listdir('train/sea'):
         img = cv2.imread('train/sea/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/sea/' + filename, img)
     for filename in listdir('train/street'):
         img = cv2.imread('train/street/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('train/street/' + filename, img)
 
     for filename in listdir('test/buildings'):
         img = cv2.imread('test/buildings/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/buildings/' + filename, img)
 
     for filename in listdir('test/forest'):
         img = cv2.imread('test/forest/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/forest/' + filename, img)
     for filename in listdir('test/glacier'):
         img = cv2.imread('test/glacier/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/glacier/' + filename, img)
     for filename in listdir('test/mountain'):
         img = cv2.imread('test/mountain/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/mountain/' + filename, img)
     for filename in listdir('test/sea'):
         img = cv2.imread('test/sea/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/sea/' + filename, img)
     for filename in listdir('test/street'):
         img = cv2.imread('test/street/' + filename)
-        img = cv2.resize(img, (150, 150))
+        img = cv2.resize(img, (100, 100))
         cv2.imwrite('test/street/' + filename, img)
     return 1
 
