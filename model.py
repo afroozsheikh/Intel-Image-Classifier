@@ -45,8 +45,8 @@ def forward_propagation(X, parameters):
     b2 = parameters['b2']
     W3 = parameters['W3']
     b3 = parameters['b3']
-    W4 = parameters['W3']
-    b4 = parameters['b3']
+    W4 = parameters['W4']
+    b4 = parameters['b4']
 
     Z1 = tf.add(tf.matmul(W1, X), b1)  # Z1 = np.dot(W1, X) + b1
     A1 = tf.nn.relu(Z1)  # A1 = relu(Z1)
@@ -135,7 +135,13 @@ X_test = X_test_flatten/255.
 Y_train = convert_to_one_hot(Y_train_orig, 6)
 Y_test = convert_to_one_hot(Y_test_orig, 6)
 
+print("number of training examples = " + str(X_train.shape[1]))
+print("number of test examples = " + str(X_test.shape[1]))
+print("X_train shape: " + str(X_train.shape))
+print("Y_train shape: " + str(Y_train.shape))
+print("X_test shape: " + str(X_test.shape))
+print("Y_test shape: " + str(Y_test.shape))
 
-parameters = model(X_train, Y_train, X_test, Y_test)
-print(parameters)
+# parameters = model(X_train, Y_train, X_test, Y_test)
+# print(parameters)
 
