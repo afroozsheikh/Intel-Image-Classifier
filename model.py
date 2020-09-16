@@ -113,7 +113,7 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
         print("Parameters have been trained!")
 
         # Calculate the correct predictions
-        correct_prediction = tf.equal(tf.argmax(Z3), tf.argmax(Y))
+        correct_prediction = tf.equal(tf.argmax(Z4), tf.argmax(Y))
 
         # Calculate accuracy on the test set
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
@@ -137,11 +137,12 @@ Y_test = convert_to_one_hot(Y_test_orig, 6)
 
 print("number of training examples = " + str(X_train.shape[1]))
 print("number of test examples = " + str(X_test.shape[1]))
-print("X_train shape: " + str(X_train.shape))
+print("X_train shape: " + str(X_train_orig.shape))
 print("Y_train shape: " + str(Y_train.shape))
-print("X_test shape: " + str(X_test.shape))
+print("X_test shape: " + str(X_test_orig.shape))
 print("Y_test shape: " + str(Y_test.shape))
 
-# parameters = model(X_train, Y_train, X_test, Y_test)
-# print(parameters)
+parameters = model(X_train, Y_train, X_test, Y_test)
+print(parameters)
+
 
