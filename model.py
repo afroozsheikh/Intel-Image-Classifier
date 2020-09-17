@@ -16,13 +16,13 @@ def create_placeholders(n_x, n_y):
 def initialize_parameters():
     tf.set_random_seed(1)
 
-    W1 = tf.get_variable("W1", [50, 30000], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b1 = tf.get_variable("b1", [50, 1], initializer=tf.zeros_initializer())
-    W2 = tf.get_variable("W2", [25, 50], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b2 = tf.get_variable("b2", [25, 1], initializer=tf.zeros_initializer())
-    W3 = tf.get_variable("W3", [12, 25], initializer=tf.contrib.layers.xavier_initializer(seed=1))
-    b3 = tf.get_variable("b3", [12, 1], initializer=tf.zeros_initializer())
-    W4 = tf.get_variable("W4", [6, 12], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    W1 = tf.get_variable("W1", [75, 30000], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    b1 = tf.get_variable("b1", [75, 1], initializer=tf.zeros_initializer())
+    W2 = tf.get_variable("W2", [35, 75], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    b2 = tf.get_variable("b2", [35, 1], initializer=tf.zeros_initializer())
+    W3 = tf.get_variable("W3", [14, 35], initializer=tf.contrib.layers.xavier_initializer(seed=1))
+    b3 = tf.get_variable("b3", [14, 1], initializer=tf.zeros_initializer())
+    W4 = tf.get_variable("W4", [6, 14], initializer=tf.contrib.layers.xavier_initializer(seed=1))
     b4 = tf.get_variable("b4", [6, 1], initializer=tf.zeros_initializer())
 
     parameters = {"W1": W1,
@@ -65,19 +65,23 @@ def compute_cost(Z4, Y):
     return cost
 
 
-def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
-          num_epochs=1200, minibatch_size=512, print_cost=True):
+def model(X_train, Y_train, X_test, Y_test, learning_rate=0.000008,
+          num_epochs=700, minibatch_size=64, print_cost=True):
     ops.reset_default_graph()  # to be able to rerun the model without overwriting tf variables
     tf.set_random_seed(1)  # to keep consistent results
     seed = 3  # to keep consistent results
+    beta = 0.01
     (n_x, m) = X_train.shape  # (n_x: input size, m : number of examples in the train set)
     n_y = Y_train.shape[0]  # n_y : output size
     costs = []  # To keep track of the cost
 
     X, Y = create_placeholders(n_x, n_y)
     parameters = initialize_parameters()
+    W4 = parameters["W4"]
     Z4 = forward_propagation(X, parameters)
     cost = compute_cost(Z4, Y)
+    regularizer = tf.nn.l2_loss(W4)
+    cost = tf.reduce_mean(cost + beta * regularizer)
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
     init = tf.global_variables_initializer()
 
